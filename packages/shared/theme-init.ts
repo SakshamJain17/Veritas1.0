@@ -1,0 +1,2 @@
+/** Runs before first paint; only the user's appearance preference is read. */
+export const THEME_INIT_SCRIPT=`(function(){var p="system";try{var c=document.cookie.match(/(?:^|;\\s*)veritas-theme=(light|dark|system)(?:;|$)/);var s=c?c[1]:localStorage.getItem("veritas-theme");if(s==="light"||s==="dark"||s==="system")p=s;}catch(e){}var t=p==="system"?(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):p;var r=document.documentElement;r.dataset.theme=t;r.dataset.themePreference=p;r.style.colorScheme=t;r.classList.toggle("dark",t==="dark");})();`;

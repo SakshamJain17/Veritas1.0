@@ -1,0 +1,33 @@
+/* Semantic color overrides generated from existing layouts. Geometry stays in the original stylesheets. */
+html[data-theme] body{background:var(--theme-canvas);color:var(--theme-secondary)}
+html[data-theme] header{border-bottom:1px solid var(--theme-border)}
+html[data-theme] header span{color:var(--theme-secondary)}
+html[data-theme] section>p:first-child{color:var(--theme-brand-text)}
+html[data-theme] .intro{color:var(--theme-secondary)}
+html[data-theme] form{border-top:1px solid var(--theme-border);border-bottom:1px solid var(--theme-border)}
+html[data-theme] input,html[data-theme] select{border:1px solid var(--theme-border)}
+html[data-theme] article{border-left:3px solid var(--theme-border)}
+html[data-theme] article small{color:var(--theme-muted)}
+html[data-theme] dl div{border-top:1px solid var(--theme-border)}
+html[data-theme] .missing{border-color:var(--theme-border)}
+html[data-theme] a{color:var(--theme-brand-text)}
+html[data-theme] footer{background:var(--theme-surface);color:var(--theme-muted)}
+html[data-theme] header>a{color:var(--theme-secondary)}
+html[data-theme] header>a>span{color:var(--theme-secondary)}
+html[data-theme] .registry-eyebrow{color:var(--theme-brand-text)}
+html[data-theme] .intro{color:var(--theme-secondary)}
+html[data-theme] .registry-help p{color:var(--theme-secondary)}
+html[data-theme] .registry-bottom{border-top:1px solid var(--theme-border);color:var(--theme-secondary)}
+html[data-theme] .registry-bottom a{color:var(--theme-secondary)}
+html[data-theme] article{background:var(--theme-soft);border:1px solid var(--theme-border);border-left:2px solid var(--theme-border)}
+html[data-theme] article small{color:var(--theme-muted)}
+html[data-theme] article dl>div{border-color:var(--theme-border)}
+html[data-theme] article dt{color:var(--theme-muted)}
+html[data-theme] article dd{color:var(--theme-secondary)}
+html[data-theme] .registry-legal{color:var(--theme-secondary)}
+html[data-theme] .registry-info-rows{border-top:1px solid var(--theme-border)}
+html[data-theme] .registry-info-rows>div{border-bottom:1px solid var(--theme-border)}
+html[data-theme] .registry-info-rows b{color:var(--theme-secondary)}
+html[data-theme] .registry-info-rows p{color:var(--theme-secondary)}
+html[data-theme] footer{color:var(--theme-muted)}
+html[data-theme] .registry-brand>span{border-left:1px solid var(--theme-border);color:var(--theme-secondary)}

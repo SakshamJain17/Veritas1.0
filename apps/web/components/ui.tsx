@@ -1,0 +1,8 @@
+"use client";
+import {Check,Clock3,HelpCircle,TriangleAlert,X,LoaderCircle,FileSearch} from "lucide-react";
+import {human} from "../lib/api";
+export function Status({value}:{value:string}){const Icon=["supported","completed"].includes(value)?Check:["contradicted","conflicting","failed","revoked"].includes(value)?TriangleAlert:["pending_review","queued","running"].includes(value)?Clock3:HelpCircle;return <span className={`status status-${value}`}><Icon size={12}/>{human(value)}</span>}
+export function Empty({title,children,action}:{title:string;children:React.ReactNode;action?:React.ReactNode}){return <div className="empty-state"><div className="empty-icon"><FileSearch size={25}/></div><h2>{title}</h2><p>{children}</p>{action}</div>}
+export function Loading({text="Loading workspace data"}:{text?:string}){return <div className="loading-state" role="status"><LoaderCircle size={18} className="spin"/>{text}</div>}
+export function Alert({error,onClose}:{error:string;onClose?:()=>void}){return <div className="workspace-alert" role="alert"><TriangleAlert size={16}/><span>{error}</span>{onClose&&<button className="icon-button" aria-label="Dismiss error" onClick={onClose}><X size={14}/></button>}</div>}
+export function Checks({checks}:{checks:Record<string,boolean|null>}){return <div className="four-checks">{["source","span","value","scope"].map(key=><div key={key} className={checks[key]===true?"pass":checks[key]===false?"fail":"unknown"}><span>{checks[key]===true?<Check size={13}/>:checks[key]===false?<X size={13}/>:<HelpCircle size={13}/>}</span><b>{key}</b><small>{checks[key]===true?"Pass":checks[key]===false?"Not met":"Unresolved"}</small></div>)}</div>}

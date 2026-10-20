@@ -1,0 +1,1 @@
+{"name":"veritas","private":true,"workspaces":["apps/web","apps/issuer-portal"],"scripts":{"dev":"npm run dev -w @veritas/web","build":"npm run build -w @veritas/web && npm run build -w @veritas/issuer-portal","test":"python3 -m unittest discover -s apps/api/tests -v"}}
