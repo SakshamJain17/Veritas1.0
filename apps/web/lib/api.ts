@@ -13,6 +13,10 @@ export type Plan={capability:string;reason:string;approved_source:boolean;budget
 export function human(value:string){return value.replaceAll("_"," ")}
 export function parse<T>(value:string|null,fallback:T):T{try{const parsed=value?JSON.parse(value):null;return parsed===null?fallback:parsed as T}catch{return fallback}}
 export async function request<T>(path:string,options?:RequestInit):Promise<T>{
+ if(typeof window!=="undefined"&&!["localhost","127.0.0.1","[::1]"].includes(window.location.hostname)){
+  const target=new URL(API,window.location.origin);
+  if(["localhost","127.0.0.1","[::1]"].includes(target.hostname))throw new Error("The hosted workspace has no public API configured yet. A workspace code cannot fix this connection. The site owner must configure the backend URL.");
+ }
  const response=await fetch(API+path,{...options,credentials:"include"});
  const data=await response.json();
  if(!response.ok){const detail=data.detail;throw new Error(typeof detail==="string"?detail:Array.isArray(detail)?detail.map((x:{msg:string})=>x.msg).join(". "):`Request failed (${response.status})`)}
