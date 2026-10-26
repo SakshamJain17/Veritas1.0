@@ -1,0 +1,13 @@
+.env
+.env.*
+.venv
+.git
+node_modules
+**/.next
+uploads
+data
+.agents
+.agent
+.gsd
+.gemini
+.superdesign

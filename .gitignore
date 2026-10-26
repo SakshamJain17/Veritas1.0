@@ -9,6 +9,11 @@ __pycache__/
 .vercel/
 .DS_Store
 *.tsbuildinfo
+apps/api/tessdata/
+.neon
+.agents/skills/neon/
+.agents/skills/neon-postgres/
+skills-lock.json
 data/
 uploads/
 *.db

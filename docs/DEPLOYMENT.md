@@ -1,6 +1,6 @@
 # Deployment
 
-Deploy the main Next.js app, FastAPI service, and synthetic issuer as separate services. The repository is a local MVP; the instructions below configure the services, not a claim that a production deployment has been executed.
+The public demo uses the three-service configuration in `vercel.json` on the existing Vercel project. See [Hosted demo](HOSTED_DEMO.md) for its Neon Free persistence, anonymous isolation, limits, and smoke tests. The instructions below describe a separate private/production installation and its remaining operational requirements.
 
 ## Main web app
 

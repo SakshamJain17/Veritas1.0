@@ -1,0 +1,10 @@
+{
+  "VERITAS_PUBLIC_DEMO": "true",
+  "VERITAS_COOKIE_SECURE": "true",
+  "PUBLIC_WEB_URL": "https://veritas1-0.vercel.app",
+  "VERITAS_WEB_ORIGIN": "https://veritas1-0.vercel.app",
+  "ISSUER_PORTAL_URL": "https://veritas1-0.vercel.app/registry",
+  "NEXT_PUBLIC_API_URL": "/api",
+  "NEXT_PUBLIC_ISSUER_PORTAL_URL": "/registry",
+  "NEXT_PUBLIC_REGISTRY_BASE_PATH": "/registry"
+}

@@ -9,7 +9,7 @@ VERITAS turns documents into structured claims that can be traced to their origi
 
 [Website](https://veritas1-0.vercel.app) · [GitHub](https://github.com/SakshamJain17/Veritas1.0) · [Deployment guide](docs/DEPLOYMENT.md)
 
-> The frontend is deployed on Vercel. A public API and persistent storage still need to be configured for hosted document and investigation workflows. Local setup runs the complete synthetic demonstration. VERITAS is not a government authority, legal certification service, or proof of ownership.
+> The public deployment is configured as an isolated, no-code demonstration with a frontend, API, synthetic registry, and Neon Free persistence. See the [hosted demo guide](docs/HOSTED_DEMO.md) for limits and verification steps. VERITAS is not a government authority, legal certification service, or proof of ownership.
 
 ## Why VERITAS?
 
@@ -271,13 +271,13 @@ npm run build
 
 The local smoke script creates fictional uploads and an attestation, checking previews, registry evidence, comparison, privacy, QR output, and routing without TinyFish calls. The live smoke script makes external requests and may consume account credits.
 
-The latest recorded backend run during setup had 35 tests: 31 passed, with four live TinyFish tests skipped because credentials were unavailable. Skipped live tests do not establish provider readiness. Re-run tests after changes; live failures are never replaced with fixtures.
+The offline suite skips live provider and hosted-database tests unless explicitly configured. The separate hosted smoke test verifies the real API, database isolation, uploads, evidence decisions, and public sharing; its optional TinyFish flag performs real Search and Fetch calls. Browser/Agent verification is separate and may consume wallet credits. Re-run tests after changes; live failures are never replaced with fixtures.
 
 ## Deployment and limitations
 
-The frontend is hosted at [veritas1-0.vercel.app](https://veritas1-0.vercel.app). Its Vercel project uses `apps/web` as the root and includes shared source outside that directory. GitHub is connected for future deployments. The requested `veritas.vercel.app` alias was unavailable; the older Veritas deployment was left unchanged.
+The public demonstration is hosted at [veritas1-0.vercel.app](https://veritas1-0.vercel.app). Its Vercel project now uses the repository root and `vercel.json` to deploy the frontend, FastAPI backend, and synthetic registry together. It uses a separate Neon Free database, not Supabase. See [hosted configuration, isolation, quotas, and smoke tests](docs/HOSTED_DEMO.md). The requested `veritas.vercel.app` alias was unavailable; the older Veritas deployment was left unchanged.
 
-To enable the full hosted application:
+For a private, production deployment beyond this public demonstration:
 
 1. Deploy FastAPI with its Python dependencies, Tesseract, a durable database, and private persistent document storage.
 2. Deploy the synthetic issuer separately, retaining fictional-data notices.

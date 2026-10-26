@@ -1,5 +1,5 @@
 """Persistent VERITAS entities. IDs and timestamps are supplied by the service layer."""
-from sqlalchemy import Column, Float, ForeignKey, Integer, String, Text
+from sqlalchemy import Column, Float, ForeignKey, Integer, String, Text, LargeBinary
 from sqlalchemy.orm import declarative_base
 
 Base=declarative_base()
@@ -59,3 +59,21 @@ class AuditEvent(Base):
 class Comparison(Base):
     __tablename__="comparisons"
     id=Column(String,primary_key=True);claim_a=Column(Text);claim_b=Column(Text);result=Column(Text);created_at=Column(String)
+
+class DocumentObject(Base):
+    __tablename__="document_objects"
+    id=Column(String,ForeignKey('documents.id'),primary_key=True)
+    data=Column(LargeBinary,nullable=False)
+
+class PublicAttestation(Base):
+    __tablename__="public_attestations"
+    id=Column(String,primary_key=True);claim_id=Column(String);status=Column(String);issuer=Column(String)
+    payload=Column(Text);hash=Column(String);revoked=Column(Integer,default=0);created_at=Column(String)
+
+class DemoUsage(Base):
+    __tablename__="demo_usage"
+    id=Column(String,primary_key=True);amount=Column(Integer,nullable=False)
+
+class DemoWorkspace(Base):
+    __tablename__='demo_workspaces'
+    id=Column(String,primary_key=True);created_at=Column(String,nullable=False);expires_at=Column(String,nullable=False)

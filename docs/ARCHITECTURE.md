@@ -1,5 +1,7 @@
 # Architecture
 
+The hosted public demo adds same-origin Vercel Services routing and a restricted Neon Free runtime role. It stores originals in PostgreSQL and isolates anonymous browser workspaces with forced row-level security. This differs from the local/private filesystem mode described below; see [Hosted demo](HOSTED_DEMO.md) for configuration, quotas, expiry, and verification.
+
 The Next.js workspace calls FastAPI for uploads, claim lists, synthetic registry checks, TinyFish investigations, reviews, comparisons, and attestations. SQLAlchemy stores documents, claims, evidence, runs, reviews, comparisons, audit events, source registrations, and attestations in SQLite by default or PostgreSQL through `DATABASE_URL`. Uploads are stored on the API host's private filesystem. A deployed installation needs durable storage for the database and originals.
 
 PDF embedded text is extracted by PyMuPDF. Tesseract handles scanned PDFs and images, returning OCR words and normalized source boxes. Deterministic patterns extract the supported atomic fields. Every claim starts at `pending_review`. Neither OCR confidence nor presence in a document proves the claim.

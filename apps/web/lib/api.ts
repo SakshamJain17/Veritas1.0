@@ -1,4 +1,5 @@
-export const API=process.env.NEXT_PUBLIC_API_URL||"http://localhost:8002";
+export const API=process.env.NEXT_PUBLIC_API_URL||(process.env.NODE_ENV==="production"?"/api":"http://localhost:8002");
+export const UPLOAD_MAX_MB=process.env.NODE_ENV==="production"?3:15;
 export type Doc={id:string;name:string;mime:string;size:number;sha256:string;created_at:string;claim_count?:number;status_counts?:Record<string,number>;page_count?:number};
 export type Claim={id:string;document_id:string;field:string;original_value:string;normalized_value:string|null;status:string;page:number;bbox:string;confidence:number};
 export type Evidence={id:string;claim_id:string;investigation_id:string|null;url:string;method:string;excerpt:string;content_sha256:string;checks:string;created_at:string};
