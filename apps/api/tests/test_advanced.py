@@ -73,6 +73,23 @@ class AdvancedFlowTests(unittest.TestCase):
    state=self.client.get('/investigations/'+result['id']).json()
   self.assertEqual(state['status'],'failed');self.assertEqual(state['reason_code'],'budget_exhausted')
   self.assertEqual(self.client.get('/investigations/'+result['id']+'/traces').json()[0]['status'],'failed')
+ def test_browser_cleanup_retries_transient_failure(self):
+  calls=[];original=httpx.AsyncClient
+  def handler(req):
+   calls.append(req)
+   return httpx.Response(409,json={'error':'RETRY_REQUIRED'},headers={'Retry-After':'0'}) if len(calls)==1 else httpx.Response(204)
+  async def run():
+   with patch('apps.api.tinyfish.adapter.httpx.AsyncClient',side_effect=lambda **kwargs:original(transport=httpx.MockTransport(handler),**kwargs)):
+    return await TinyFishAdapter(key='unit-test-only').close_browser('test-session')
+  self.assertEqual(asyncio.run(run()),{'status':'closed'});self.assertEqual(len(calls),2)
+ def test_browser_cleanup_does_not_mask_lookup_failure(self):
+  adapter=TinyFishAdapter(key='unit-test-only');adapter.create_browser=AsyncMock(return_value={'session_id':'test-session'});adapter.close_browser=AsyncMock(side_effect=RuntimeError('cleanup failed'))
+  with self.assertRaisesRegex(RuntimeError,'connection URL'):asyncio.run(adapter.browser_lookup('https://registry.example.org','Pune','VR-1042'))
+  adapter.close_browser.assert_awaited_once_with('test-session')
+ def test_invalid_browser_request_never_starts_provider(self):
+  with patch.object(TinyFishAdapter,'browser_lookup',new=AsyncMock()) as lookup:
+   response=self.client.post('/investigations',json={'capability':'browser','url':'https://registry.example.org','consent':True})
+  self.assertEqual(response.status_code,422);lookup.assert_not_awaited()
  def test_correction_invalidates_prior_value_checks(self):
   self.register();doc=self.upload();claim=next(c for c in doc['claims'] if c['field']=='owner_name');saved=save_observation(claim,'https://registry.example.org/a','Record ID: VR-1042\nOwner: Ramesh Kumar\nDistrict: Pune','tinyfish_fetch','unit-test')
   result=self.client.post('/reviews/'+claim['id']+'/decision',json={'decision':'corrected','reason':'Corrected source transcription','corrected_value':'Ramesh K. Kumar'})

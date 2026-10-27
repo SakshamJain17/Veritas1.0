@@ -309,6 +309,11 @@ async def investigate(req:Investigation,tasks:BackgroundTasks):
     if req.capability=="agent" and not req.goal:raise HTTPException(422,"A bounded goal is required")
     if req.claim_id and not get("claims",req.claim_id):raise HTTPException(404,"Claim not found")
     if len(req.urls)>10:raise HTTPException(422,'At most 10 source URLs may be fetched')
+    if req.capability=='browser' and (not req.district or not req.survey_number):raise HTTPException(422,'Browser lookup requires district and survey number')
+    if req.capability in {'fetch','browser','agent'}:
+        try:
+            for url in (req.urls if req.capability=='fetch' else [req.url]):validate_public_url(url,approved_hosts())
+        except ValueError as exc:raise HTTPException(422,str(exc))
     if public_demo():
         day=time.strftime('%Y-%m-%d',time.gmtime())
         try:
